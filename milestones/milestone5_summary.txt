@@ -91,13 +91,33 @@ Steps Taken So Far, and Why
      Why: programs keep the PATH they started with, and VS Code was open
      before Node.js was installed
 
+11. First map on the iPhone (November 7): campus map with three test pins
+   - Cleared out the template with "npm run reset-project" (chose to delete
+     the sample screens rather than keep a copy; they are in git history)
+     Why: start from one empty screen instead of Expo's demo
+   - Installed the map with "npx expo install react-native-maps"
+     Why: "expo install" picks the version that matches SDK 58 (1.29.11);
+     Expo Go already contains it, so no extra setup or key was needed.
+     On the iPhone it shows Apple Maps
+   - Named the app "GT Event Map" (app.json) and gave it a navy header
+   - Map opens on the same center as map.html, with gold/navy numbered pins
+     at Clough, the Student Center and Klaus. Tapping one shows its name
+     Why test pins first: if something is wrong, we know it's the map and
+     not the data. Real events from Firebase come next
+   - Checked with "npx tsc --noEmit" (TypeScript finds type mistakes),
+     "npx expo-doctor" and a test compile before looking on the phone
+   - npm reports 5 moderate warnings in Expo's own laptop tools (glob,
+     minimatch); left alone, since nothing in them ships to phones and the
+     suggested "--force" fix would install incompatible versions
+   Checked by the owner on the iPhone. The gear button at the top right is
+   Expo Go's developer menu, not part of the app
+
 Steps Still To Do
 -----------------
 - Finish the emulator setup. Why: same testing, without a phone.
 - Connect the Android phone when it's available.
-- Add the map with react-native-maps. Why: Expo's SDK 58 docs list it as
-  included in Expo Go with no extra setup.
-- Load the real events from Firebase and show the pins.
+- Load the real events and buildings from Firebase, pin them by building,
+  and show the events when a pin is tapped.
 - Add the time frame and category filters.
 - Add the "Not on the map" list.
 - Save the last good data on the phone, for when it is offline.
@@ -116,4 +136,7 @@ Key Files
 - app/package.json: the packages the app uses, and the Expo version
 - app/app.json: the app's settings (name, icons, ...)
 - app/src/app/: the app's screens. Each file here is a screen
+  (index.tsx is the map; _layout.tsx is the header around it)
+- app/src/components/building-pin.tsx: the gold numbered pin
+- app/src/constants/campus.ts: GT colors and the map's starting area
 - app/AGENTS.md: Expo's notes for AI coding assistants

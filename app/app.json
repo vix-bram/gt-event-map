@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "app",
-    "slug": "app",
+    "name": "GT Event Map",
+    "slug": "gt-event-map",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "app",
+    "scheme": "gteventmap",
     "userInterfaceStyle": "automatic",
     "ios": {
       "icon": "./assets/expo.icon"
