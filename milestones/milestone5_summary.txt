@@ -73,11 +73,26 @@ Steps Taken So Far, and Why
 9. Committed the app/ folder to GitHub
    Why: so the work is saved and its history can be reviewed.
 
+10. Connected the iPhone (November 7): the welcome screen opened in Expo Go
+   - Installed Expo Go from the App Store (free; developer shown as
+     "Nametag", seller 650 Industries) and signed in as vix-bram
+     Why: on a real iPhone, Expo Go only opens a project when the phone and
+     the laptop are signed in to the same Expo account
+   - Logged the laptop in with "npx expo login --no-browser" (asks for the
+     username and password in the terminal)
+     Why: plain "npx expo login" crashes on Windows. It opens the browser
+     with an old Windows command that treats each "&" in the login link as
+     a new command, so the link is cut short and Expo never hears back
+   - On Starbucks Wi-Fi the phone couldn't reach the laptop ("server could
+     not be found"); on another network it worked
+     Why: public Wi-Fi often blocks devices from reaching each other
+     (client isolation). "npx expo start --tunnel" gets around it
+   - The terminal didn't know "npx" until VS Code was restarted
+     Why: programs keep the PATH they started with, and VS Code was open
+     before Node.js was installed
+
 Steps Still To Do
 -----------------
-- Connect the iPhone: install Expo Go and sign in to a free Expo account.
-  Why: Expo Go on a real iPhone only opens a project when it and the laptop
-  are signed in to the same account.
 - Finish the emulator setup. Why: same testing, without a phone.
 - Connect the Android phone when it's available.
 - Add the map with react-native-maps. Why: Expo's SDK 58 docs list it as
@@ -90,12 +105,11 @@ Steps Still To Do
 
 Open Issues
 -----------
-- Can a free iPhone setup run SDK 58? The sources disagree. Expo's
-  troubleshooting page says Expo Go on the App Store stops at SDK 54, and
-  that newer projects need a TestFlight build of Expo Go, which needs the
-  paid Apple Developer Program ($99/year). But Apple's App Store data on
-  November 5 lists Expo Go 58.0.5 as free, with the note "This version adds
-  support for SDK 58". Trying the free App Store version will settle it.
+- Settled (November 7): the free App Store Expo Go (58.0.5) runs our SDK 58
+  project, so no paid Apple account is needed for testing. Expo's
+  troubleshooting page, which says the App Store version stops at SDK 54,
+  is out of date.
+- Android: emulator setup and the Android phone are still to do.
 
 Key Files
 ---------

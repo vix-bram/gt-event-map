@@ -10,8 +10,8 @@ a day and publish it online, where the future phone app can read it.
 
 Done when: events in Firebase refresh on their own once a day, and a failed
 refresh sends an email. The daily refresh is proven by 7 scheduled runs in a
-row. The failure email is switched on but has never fired, because no run
-has failed yet (see Open Issues).
+row. The failure email was proven on November 5 with a test run that failed
+on purpose.
 
 What Was Accomplished
 ---------------------
@@ -44,6 +44,9 @@ What Was Accomplished
 
 5. Failure emails
    - Turned on by the owner in GitHub (Settings -> Notifications -> Actions)
+   - Tested on November 5: a run on a temporary branch failed on purpose, and
+     the email arrived. The failure came before the deploy step, so the live
+     data was not touched, and the branch was then deleted
 
 Results (November 5, 2026)
 --------------------------
@@ -69,12 +72,13 @@ Key Decisions
 
 Open Issues
 -----------
-- The failure email has not been seen in practice, since no run has failed.
+- The failure email test was a manually started run. GitHub sends failures
+  of scheduled runs to whoever last set the schedule, which should also be
+  the owner, but a scheduled failure hasn't happened yet.
 - GitHub starts the scheduled runs hours late. Nothing has been missed, but
   the data for "today" may not be refreshed until around midday in Atlanta.
 - Still waiting for GT's reply about the broken/empty feeds and the list of
   buildings.
-- README.md still describes the old plan (Vercel, a live demo link).
 
 Key Files
 ---------
