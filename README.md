@@ -1,4 +1,4 @@
-## GT Event Map: Finding Events on Georgia Tech's Campus
+## GT Campus Events: Finding Events on Georgia Tech's Campus
 
 A map of what's happening on Georgia Tech's campus, built from the official GT campus calendar feeds. It's becoming a mobile app for Android and iPhone, with Google Play first. The screenshot shows `map.html`, the working web prototype the app is based on.
 
@@ -31,12 +31,6 @@ It's being built for Georgia Tech first. The goal is to eventually expand to col
 * Publish on Google Play, then the Apple App Store
 * More event sources (student organizations on Engage, athletics, department pages)
 * Saved events and accounts (Firestore), if the app gets user features
-
-### How it works
-
-Once a day, a GitHub Actions job reads GT's calendar feeds, matches each event to a campus building, labels food and registration, and publishes the result to Firebase Hosting. The phone app downloads that file and shows the events on the map.
-
-![Workflow diagram: GT's calendar RSS feeds are read by gt_calendar_rss.py, then locate.py and categorize.py, in a daily GitHub Actions job that deploys events.json to Firebase Hosting, where the Expo phone app downloads it and shows one pin per building. A sanity check stops the job if the data looks broken. Below: the map.html prototype, which reads the same files locally, and the milestones still to build](docs/milestone1_5_workflow.png)
 
 ### Tech stack
 
