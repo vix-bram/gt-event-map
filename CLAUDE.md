@@ -8,7 +8,7 @@ Campus events at Georgia Tech are scattered across dozens of sources: department
 
 Build a mobile app, published on Google Play first and the Apple App Store later, that shows Georgia Tech events as pins, filterable by category, on an interactive map of the GT campus. Behind it, a scheduled job reads publicly available GT event sources, parses them into structured data (plain code where the source is structured; an LLM only where plain code isn't enough) and publishes them to Firebase, where the app reads them.
 
-**Decision (user, 2026-10-29):** the target changed from a web app (on Vercel) to a mobile app. The app is built with Expo (React Native), so one codebase serves Android and iOS, and EAS (Expo's cloud build service) builds the iPhone version without a Mac. Firebase replaces Vercel as the host. Everything is tested free with the Expo Go app on the user's own Android phone and iPhone (plus the Android Studio emulator on the laptop) before paying for any store account (Google Play $25 once; Apple $99/year). Build and test on both platforms from the start, but publish Android first. `map.html` stays as the working prototype and reference for the app's behavior.
+**Decision (user, 2026-10-29):** the target changed from a web app (on Vercel) to a mobile app. The app is built with Expo (React Native), so one codebase serves Android and iOS, and EAS (Expo's cloud build service) builds the iPhone version without a Mac. Firebase replaces Vercel as the host. Everything is tested free with the Expo Go app on the user's own Android phone and iPhone before paying for any store account (Google Play $25 once; Apple $99/year). Build and test on both platforms from the start, but publish Android first. The Android Studio emulator was dropped by the user on 2026-11-11: testing is on the real Android phone instead. `map.html` stays as the working prototype and reference for the app's behavior.
 
 ## Core Features
 
@@ -35,7 +35,7 @@ Build a mobile app, published on Google Play first and the Apple App Store later
 * **Scraping**: Python with BeautifulSoup or Playwright
 * **Parsing**: Python (BeautifulSoup + JSON) for structured sources; Google Gemini API later, only if needed
 * **Data hosting**: Firebase (Firestore, or a static `events.json` on Firebase; decided in Milestone 4)
-* **App**: Expo (React Native) for Android and iOS, with a native map (`react-native-maps`); tested with Expo Go and the Android Studio emulator; store builds via EAS
+* **App**: Expo (React Native) for Android and iOS, with a native map (`react-native-maps`); tested with Expo Go on the user's phones; store builds via EAS
 * **Prototype**: Plain HTML + Google Maps JavaScript API (`map.html`)
 * **Scheduling**: GitHub Actions
 
@@ -138,7 +138,7 @@ Done when: events in Firebase refresh on their own once a day, and a failed refr
 ### Milestone 5: Mobile app (Expo)
 Done when: the app runs on the user's Android phone and iPhone through Expo Go and does what `map.html` does, with data from Firebase.
 
-- [ ] Set up the Expo project (Node.js, Expo CLI; Android Studio emulator on the laptop; Expo Go on both phones). In progress: project in `app/` (Expo SDK 58, 2026-11-05). iPhone done 2026-11-07: the free App Store Expo Go (58.0.5, developer shown as "Nametag") opens the project, despite Expo's docs saying the App Store version stops at SDK 54. A real iPhone needs the same Expo account (`vix-bram`) signed in on the phone and in the CLI; on Windows log the CLI in with `npx expo login --no-browser`, because the browser login crashes (`cmd /c start` splits the URL at `&`). Public Wi-Fi may block the phone from reaching the laptop; use `--tunnel`. Still to do: emulator and Android phone
+- [ ] Set up the Expo project (Node.js, Expo CLI; Expo Go on both phones). In progress: project in `app/` (Expo SDK 58, 2026-11-05). iPhone done 2026-11-07: the free App Store Expo Go (58.0.5, developer shown as "Nametag") opens the project, despite Expo's docs saying the App Store version stops at SDK 54. A real iPhone needs the same Expo account (`vix-bram`) signed in on the phone and in the CLI; on Windows log the CLI in with `npx expo login --no-browser`, because the browser login crashes (`cmd /c start` splits the URL at `&`). Public Wi-Fi may block the phone from reaching the laptop; use `--tunnel`. Still to do: the Android phone (from 2026-11-12)
 - [x] Map of campus with event pins grouped by building, and event details on tap (2026-11-11; checked by the user on the iPhone, Android still to check)
 - [x] Time frame (Today / Tomorrow / Next 7 days / a date) and category checkboxes, as in `map.html` (2026-11-11; checked by the user on the iPhone, Android still to check)
 - [x] "Not on the map" list (online, unmatched, off campus, no location) (2026-11-11; checked by the user on the iPhone, Android still to check)

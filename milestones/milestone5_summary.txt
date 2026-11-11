@@ -146,10 +146,39 @@ Steps Taken So Far, and Why
      when daylight saving starts and ends get the right midnight)
    Checked by the owner on the iPhone (November 11)
 
+13. "Happening now" tag and a "Campus" button (November 11)
+   - Events that have started and not ended get a navy "Happening now"
+     tag, first among the tags. Why: "today" lists events from earlier
+     that are still going (e.g. 9 AM - 10:30 PM), and students want to
+     know what they can still walk into. It updates every 5 minutes
+   - "↺ Campus" button at the bottom right moves the map back to the
+     middle of campus at the starting zoom. Why: after panning or zooming
+     far away, getting back by hand is slow. A text button, because the
+     project has no icon package and one button isn't worth adding one
+   - The gold card says "5 events left today (Wed, Nov 11)" and "left in
+     the next 7 days" (also "left on" a picked date that is today).
+     Why "left" and not "from now": events that are still going count too
+   - Decided by the owner, and left as they are: the dark map in dark mode
+     (looks good); Apple's place icons on the map (they don't look like
+     our numbered pins); the bottom panel covering the map (tapping the
+     map closes it)
+   - Ideas the owner liked, for later: show the student's own location
+     (needs a location permission and a line in the privacy policy, so
+     before Milestone 6); search by event name; "Add to calendar"; sharing
+     an event
+   - Later, once there are more events: a "Now" time frame chip (events
+     going on or starting within the hour). Not yet, because on Nov 11
+     only 0-3 events were going at a typical hour this week, so it would
+     often be empty. A chip, not a category checkbox, since it is a time
+     frame and categories are OR'd
+
 Steps Still To Do
 -----------------
-- Finish the emulator setup. Why: same testing, without a phone.
-- Connect the Android phone when it's available.
+- Connect the Android phone (from November 12) and open the app in Expo
+  Go there.
+  The emulator is dropped (owner, November 11): the real phone tests
+  touch, speed and Google Maps better, and phone screenshots work for
+  the Google Play listing.
 - Have the owner check it on both phones (pins, filters, list, and the
   offline copy: open the app once online, then in Airplane mode).
 
@@ -159,7 +188,7 @@ Open Issues
   project, so no paid Apple account is needed for testing. Expo's
   troubleshooting page, which says the App Store version stops at SDK 54,
   is out of date.
-- Android: emulator setup and the Android phone are still to do.
+- Android: the Android phone is still to do (no emulator).
 
 Key Files
 ---------

@@ -2,11 +2,12 @@ import * as WebBrowser from 'expo-web-browser';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { GT_NAVY } from '@/constants/campus';
-import { categoriesOf, FOOD, formatWhen, type GtEvent } from '@/lib/events';
+import { categoriesOf, FOOD, formatWhen, isHappeningNow, type GtEvent } from '@/lib/events';
 
 // One event: name (tap to open GT's event page), time, location and tags,
-// like the event cards in map.html.
-export function EventCard({ event }: { event: GtEvent }) {
+// like the event cards in map.html. Events that have already started get a
+// "Happening now" tag first, so students see what they can still walk into.
+export function EventCard({ event, now }: { event: GtEvent; now: Date }) {
   return (
     <View style={styles.card}>
       <Pressable onPress={() => WebBrowser.openBrowserAsync(event.url)} accessibilityRole="link">
@@ -15,6 +16,7 @@ export function EventCard({ event }: { event: GtEvent }) {
       <Text style={styles.when}>{formatWhen(event)}</Text>
       {event.location ? <Text style={styles.where}>{event.location}</Text> : null}
       <View style={styles.tags}>
+        {isHappeningNow(event, now) ? <Text style={[styles.tag, styles.now]}>Happening now</Text> : null}
         {categoriesOf(event).map((category) => (
           <Text key={category} style={[styles.tag, category === FOOD && styles.food]}>
             {category}
@@ -64,6 +66,10 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     backgroundColor: '#eee',
     color: '#333',
+  },
+  now: {
+    backgroundColor: GT_NAVY,
+    color: '#fff',
   },
   food: {
     backgroundColor: '#e6f4ea',

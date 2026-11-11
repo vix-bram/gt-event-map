@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, AppState, Pressable, StyleSheet, Text, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -50,6 +50,8 @@ export default function MapScreen() {
   const [panel, setPanel] = useState<OpenPanel>(null);
 
   const insets = useSafeAreaInsets();
+  // Lets the "Campus" button move the map.
+  const mapRef = useRef<MapView>(null);
 
   useEffect(() => {
     let cancelled = false; // ignore the answer if the screen has closed meanwhile
@@ -116,6 +118,7 @@ export default function MapScreen() {
   return (
     <View style={styles.screen}>
       <MapView
+        ref={mapRef}
         style={styles.map}
         initialRegion={GT_REGION}
         // Tapping the map closes the open panel. On the iPhone a tap on a pin
@@ -169,11 +172,21 @@ export default function MapScreen() {
               </Pressable>
             </View>
           ) : null}
-          {unmappedCount > 0 ? (
-            <Pressable style={styles.listButton} onPress={() => setPanel({ kind: 'unmapped' })} accessibilityRole="button">
-              <Text style={styles.listButtonText}>Not on the map ({unmappedCount})</Text>
+          <View style={styles.buttonRow}>
+            {unmappedCount > 0 ? (
+              <Pressable style={styles.listButton} onPress={() => setPanel({ kind: 'unmapped' })} accessibilityRole="button">
+                <Text style={styles.listButtonText}>Not on the map ({unmappedCount})</Text>
+              </Pressable>
+            ) : null}
+            {/* Moves the map back to the middle of campus, at the starting zoom. */}
+            <Pressable
+              style={styles.campusButton}
+              onPress={() => mapRef.current?.animateToRegion(GT_REGION, 500)}
+              accessibilityRole="button"
+              accessibilityLabel="Back to campus">
+              <Text style={styles.campusButtonText}>↺ Campus</Text>
             </Pressable>
-          ) : null}
+          </View>
         </View>
       ) : null}
 
@@ -198,7 +211,7 @@ export default function MapScreen() {
       {openGroup ? (
         <BottomPanel title={openGroup.building} subtitle={plural(openGroup.events.length, 'event')} onClose={() => setPanel(null)}>
           {openGroup.events.map((event, i) => (
-            <EventCard key={eventKey(event, i)} event={event} />
+            <EventCard key={eventKey(event, i)} event={event} now={now} />
           ))}
         </BottomPanel>
       ) : null}
@@ -215,7 +228,7 @@ export default function MapScreen() {
                 {section.title} ({section.events.length})
               </Text>
               {section.events.map((event, i) => (
-                <EventCard key={eventKey(event, i)} event={event} />
+                <EventCard key={eventKey(event, i)} event={event} now={now} />
               ))}
             </View>
           ))}
@@ -277,6 +290,29 @@ const styles = StyleSheet.create({
     color: GT_NAVY,
     fontWeight: '600',
     textDecorationLine: 'underline',
+  },
+  buttonRow: {
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  campusButton: {
+    marginLeft: 'auto', // keeps it at the right edge
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    borderRadius: 20,
+    backgroundColor: '#fff',
+    borderWidth: 2,
+    borderColor: GT_NAVY,
+    shadowColor: '#000',
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 6,
+  },
+  campusButtonText: {
+    color: GT_NAVY,
+    fontWeight: 'bold',
   },
   listButton: {
     paddingVertical: 10,

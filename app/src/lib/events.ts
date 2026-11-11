@@ -186,7 +186,8 @@ export type TimeFrame = { from: Date; to: Date; label: string };
 export type Range = 'today' | 'tomorrow' | 'week' | 'date';
 
 // The chosen time frame. Events that have already ended are never shown,
-// so "Today" at 3 PM starts at 3 PM. Labels fit after "No events ...".
+// so "Today" at 3 PM starts at 3 PM. Labels fit after "5 events ..." and
+// "No events ...".
 export function timeFrameFor(range: Range, pickedDay: CalendarDay, now = new Date()): TimeFrame {
   let start: Date;
   let end: Date;
@@ -208,6 +209,10 @@ export function timeFrameFor(range: Range, pickedDay: CalendarDay, now = new Dat
     end = startOfAtlantaDay(1, now);
     label = `today (${formatDay(start)})`;
   }
+  // Once the time frame has begun, events that ended are already gone, so
+  // the label says "left": "left today (Wed, Nov 11)". Events still going
+  // count, which is why it isn't "from now".
+  if (start < now) label = `left ${label}`;
   return { from: start > now ? start : now, to: end, label };
 }
 
@@ -215,6 +220,11 @@ function eventEnd(e: GtEvent): Date {
   if (e.end) return new Date(e.end);
   const length = e.all_day ? DAY_MS : DEFAULT_LENGTH_MS;
   return new Date(new Date(e.start).getTime() + length);
+}
+
+// True if the event has started and not ended yet.
+export function isHappeningNow(e: GtEvent, now: Date): boolean {
+  return new Date(e.start) <= now && eventEnd(e) > now;
 }
 
 // Events that overlap the time frame at all, sorted by start time.
