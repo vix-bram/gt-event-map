@@ -25,12 +25,18 @@ It's being built for Georgia Tech first. The goal is to eventually expand to col
 * Refreshes the events automatically once a day (GitHub Actions) and publishes them on Firebase Hosting for the app to read
 
 **In progress**
-* Mobile app for Android and iPhone with the same map, filters and list, built with Expo in the `app/` folder
+* Mobile app for Android and iPhone, built with Expo in the `app/` folder. It already has the map, time frame and category filters, the "Not on the map" list and a saved copy for offline use, and runs on an iPhone through Expo Go; Android testing is next
 
 **Planned**
 * Publish on Google Play, then the Apple App Store
 * More event sources (student organizations on Engage, athletics, department pages)
 * Saved events and accounts (Firestore), if the app gets user features
+
+### How it works
+
+Once a day, a GitHub Actions job reads GT's calendar feeds, matches each event to a campus building, labels food and registration, and publishes the result to Firebase Hosting. The phone app downloads that file and shows the events on the map.
+
+![Workflow diagram: GT's calendar RSS feeds are read by gt_calendar_rss.py, then locate.py and categorize.py, in a daily GitHub Actions job that deploys events.json to Firebase Hosting, where the Expo phone app downloads it and shows one pin per building. A sanity check stops the job if the data looks broken. Below: the map.html prototype, which reads the same files locally, and the milestones still to build](docs/milestone1_5_workflow.png)
 
 ### Tech stack
 

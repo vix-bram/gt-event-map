@@ -139,10 +139,10 @@ Done when: events in Firebase refresh on their own once a day, and a failed refr
 Done when: the app runs on the user's Android phone and iPhone through Expo Go and does what `map.html` does, with data from Firebase.
 
 - [ ] Set up the Expo project (Node.js, Expo CLI; Android Studio emulator on the laptop; Expo Go on both phones). In progress: project in `app/` (Expo SDK 58, 2026-11-05). iPhone done 2026-11-07: the free App Store Expo Go (58.0.5, developer shown as "Nametag") opens the project, despite Expo's docs saying the App Store version stops at SDK 54. A real iPhone needs the same Expo account (`vix-bram`) signed in on the phone and in the CLI; on Windows log the CLI in with `npx expo login --no-browser`, because the browser login crashes (`cmd /c start` splits the URL at `&`). Public Wi-Fi may block the phone from reaching the laptop; use `--tunnel`. Still to do: emulator and Android phone
-- [ ] Map of campus with event pins grouped by building, and event details on tap
-- [ ] Time frame (Today / Tomorrow / Next 7 days / a date) and category checkboxes, as in `map.html`
-- [ ] "Not on the map" list (online, unmatched, off campus, no location)
-- [ ] Loads events from Firebase; works sensibly offline or when loading fails
+- [x] Map of campus with event pins grouped by building, and event details on tap (2026-11-11; checked by the user on the iPhone, Android still to check)
+- [x] Time frame (Today / Tomorrow / Next 7 days / a date) and category checkboxes, as in `map.html` (2026-11-11; checked by the user on the iPhone, Android still to check)
+- [x] "Not on the map" list (online, unmatched, off campus, no location) (2026-11-11; checked by the user on the iPhone, Android still to check)
+- [x] Loads events from Firebase; works sensibly offline or when loading fails (2026-11-11; checked by the user on the iPhone, Android still to check)
 - [ ] Checked by the user on both phones
 
 ### Milestone 6: Publish on Google Play
